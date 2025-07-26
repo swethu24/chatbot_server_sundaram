@@ -8,9 +8,8 @@ app = FastAPI()
 @app.post("/")
 async def root(request: Request):
     body = await request.json()
-    print("Received Dialogflow Webhook Request:")
-    print(json.dumps(body, indent=2))
+    intent = body['queryResult']['intent']['displayName']
+    parameters = body['queryResult']['parameters']
+    output_contexts = body['queryResult']['outputContexts']
 
-    #print("Request JSON: ", json.dumps(request_info, indent=2))
-
-    return {"Request received at backend"}
+    return {f"Request received for intent : {intent}"}
