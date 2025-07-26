@@ -17,6 +17,6 @@ async def hanlder(request:Request):
     if intent == "order.track":
         return JSONResponse(
             content={
-                "fulfillmentText": "Received request for tracking - Intent : {initent}",
+                "fulfillmentText": "Received request for tracking - Intent : {intent}",
             }
         )
