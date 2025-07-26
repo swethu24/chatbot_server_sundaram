@@ -15,8 +15,4 @@ async def hanlder(request:Request):
     output_context = input_payload['queryResult']['outputContexts']
 
     if intent == "order.track":
-        return JSONResponse(
-            content={
-                "fulfillmentText": "Received request for tracking - Intent: order.track",
-            }
-        )
+        return {f"Received request at backend {intent}"}
