@@ -7,9 +7,8 @@ app = FastAPI()
 @app.get("/")
 async def hanlder(request:Request):
     """Handles incoming requests to the root endpoint."""
-    #Fetch payload
     input_payload = await request.json()
-
+    print(f"Received request: {input_payload}")
     intent = input_payload['queryResult']['intent']['displayName']
     parameters = input_payload['queryResult']['parameters']
     output_context = input_payload['queryResult']['outputContexts']
