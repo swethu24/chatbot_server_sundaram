@@ -5,17 +5,12 @@ import json
 
 app = FastAPI()
 
-@app.get("/")
+@app.post("/")
 async def root(request: Request):
-    print(f"Request received: {request.method} {request.url}")
-    
-    request_info = {
-            "method": request.method,
-            "url": str(request.url),
-            "headers": dict(request.headers),
-            "query_params": dict(request.query_params)
-        }
-        
-    print("Request JSON: ", json.dumps(request_info, indent=2))
+    body = await request.json()
+    print("Received Dialogflow Webhook Request:")
+    print(json.dumps(body, indent=2))
 
-    return {f"Request received {json.dumps(request_info)}"}
+    #print("Request JSON: ", json.dumps(request_info, indent=2))
+
+    return {f"Request received"}
