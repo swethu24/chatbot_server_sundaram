@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 @app.get("/")
-async def hanlder(request:Request):
+async def handler(request:Request):
     """Handles incoming requests to the root endpoint."""
     input_payload = await request.json()
     print(f"Received request: {input_payload}")
