@@ -13,4 +13,4 @@ async def root(request: Request):
 
     #print("Request JSON: ", json.dumps(request_info, indent=2))
 
-    return {f"Request received"}
+    return {"Request received at backend"}
