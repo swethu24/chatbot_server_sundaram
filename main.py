@@ -11,5 +11,5 @@ async def root(request: Request):
     intent = body['queryResult']['intent']['displayName']
     parameters = body['queryResult']['parameters']
     output_contexts = body['queryResult']['outputContexts']
-
+    print(intent)
     return {f"Request received for intent : {intent}"}
