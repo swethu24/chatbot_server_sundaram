@@ -2,10 +2,11 @@ import mysql.connector
 global cnx
 
 cnx = mysql.connector.connect(
-    host="localhost",
+    host="127.0.0.1",
     user="root",
     password="root",
-    database="server_sundaram"            
+    database="server_sundaram",
+    port = 3306            
 )
 
 def get_order_status(order_id):
