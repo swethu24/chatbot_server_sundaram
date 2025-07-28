@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
-import json
+from utils import db_connector
 
 app = FastAPI()
 
@@ -11,8 +11,20 @@ async def root(request: Request):
     intent = body['queryResult']['intent']['displayName']
     parameters = body['queryResult']['parameters']
     output_contexts = body['queryResult']['outputContexts']
-    print(intent)
-    fulfillment_text = " Request received at backend"
+    
+    if intent == "order.track":
+        return fetch_tracking_status(parameters["order_id"])
+    
+def fetch_tracking_status(order_id):
+    """Fetch Tracking Status"""
+    order_status = db_connector.get_order_status(order_id)
+    if order_status:
+        fulfillment_text = f"The order status for order id: {order_id} is: {order_status}"
+    else:
+        fulfillment_text = f"No order found with order id: {order_id}"
+
     return JSONResponse(content={
         "fulfillmentText": fulfillment_text
     })
+
+
