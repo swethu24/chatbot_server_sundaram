@@ -2,10 +2,10 @@ import mysql.connector
 global cnx
 
 cnx = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="root",
-    database="server_sundaram",
+    host="sql.freedb.tech",
+    user="freedb_food_chat_bot_user",
+    password="kwW4Ytz?rqNgFCq",
+    database="freedb_food_chat_bot",
     port = 3306            
 )
 
