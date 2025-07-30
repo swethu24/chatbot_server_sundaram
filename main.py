@@ -13,7 +13,7 @@ async def root(request: Request):
     output_contexts = body['queryResult']['outputContexts']
     
     if intent == "order.track":
-        return fetch_tracking_status(parameters["order_id"])
+        return fetch_tracking_status(parameters["number"])
     
 def fetch_tracking_status(order_id):
     """Fetch Tracking Status"""
