@@ -9,7 +9,7 @@ st.markdown("<h3 style='text-align: center; font-style: italic;'>Your healthy me
 
 # Image placeholder
 
-st.image("C:/Users/SESA737865/Documents/Learnings/Chatbots/chatbot_server_sundaram/frontend/images/Screenshot 2025-08-01 165246.png", use_column_width=True)  # Replace with your image path
+st.image("images/Screenshot 2025-08-01 165246.png", use_column_width=True)  # Replace with your image path
 
 # Section: Menu
 st.markdown("## 🧾 Today's Menu")
@@ -28,10 +28,10 @@ for item, price in menu_items.items():
     st.markdown(f"**{item}** — ₹{price}")
 
 # Image placeholder for menu
-st.image("C:/Users/SESA737865/Documents/Learnings/Chatbots/chatbot_server_sundaram/frontend/images/alaap-d-Fv3uNhZVMJU-unsplash.jpg ")
-st.image("C:/Users/SESA737865/Documents/Learnings/Chatbots/chatbot_server_sundaram/frontend/images/shreyak-singh-gFB1IPmH6RE-unsplash.jpg")
-st.image("C:/Users/SESA737865/Documents/Learnings/Chatbots/chatbot_server_sundaram/frontend/images/Screenshot 2025-08-01 164929.png")
-st.image("C:/Users/SESA737865/Documents/Learnings/Chatbots/chatbot_server_sundaram/frontend/images/Screenshot 2025-08-01 165109.png")      
+st.image("images/alaap-d-Fv3uNhZVMJU-unsplash.jpg ")
+st.image("images/shreyak-singh-gFB1IPmH6RE-unsplash.jpg")
+st.image("images/Screenshot 2025-08-01 164929.png")
+st.image("images/Screenshot 2025-08-01 165109.png")      
 # Section: Order Form
 st.markdown("---")
 st.markdown("## 🛒 Place Your Order now through our Chat Bot Below")
