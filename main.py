@@ -71,9 +71,10 @@ def complete_order(parameters: dict, session_id: str):
 
 def add_to_order(parameters: dict, session_id: str):
     print("Inside add to order")
+    print(parameters)
     food_items = parameters["food-item"]
     quantities = parameters["number"]
-    print(food_items,quantities)
+    #print(food_items,quantities)
     if len(food_items) != len(quantities):
         fulfillment_text = " I\'m Sorry, I didn\'t understand. Could you please specify food items and quantities clearly?"
     else:
