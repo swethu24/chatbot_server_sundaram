@@ -9,33 +9,29 @@ cnx = mysql.connector.connect(
     port = 3306            
 )
 def insert_order_item(food_item, quantity, order_id):
-
     cursor = cnx.cursor()
-    food_items = dict(zip(food_item, quantity))
-    # Build the inline table for SQL
-    values_clause = " UNION ALL ".join(
-        f"SELECT {key} AS name, {values} AS quantity"
-        for key,values in food_items.items()
-    )
+    items = dict(zip(food_item, quantity))
 
-    query = f"""
-        SELECT 
-            fi.item_id,
-            fi.name,
-            fi.price,
-            temp.quantity,
-            fi.price * temp.quantity AS total_price
-        FROM 
-            food_items fi
-        JOIN (
-            {values_clause}
-        ) AS temp ON fi.name = temp.name;
-    """
+    for item_name, qty in items.items():
+        # Fetch item_id and price from food_items table
+        cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name,))
+        result = cursor.fetchone()
 
-    cursor.execute(query)
-    results = cursor.fetchall()
+        if result:
+            item_id, price = result
+            total_price = price * qty
+
+            # Insert into orders table
+            insert_query = """
+                INSERT INTO orders (order_id, item_id, quantity, total_price)
+                VALUES (%s, %s, %s, %s)
+            """
+            cursor.execute(insert_query, (order_id, item_id, qty, total_price))
+        else:
+            print(f"Item '{item_name}' not found in food_items table.")
+
+    cnx.commit()
     cursor.close()
-    return results
 
 # Function to insert a record into the order_tracking table
 def insert_order_tracking(order_id, status):
