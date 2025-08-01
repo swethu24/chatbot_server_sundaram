@@ -30,14 +30,11 @@ def save_to_db(order: dict):
     next_order_id = db_connector.get_next_order_id()
     print("Got next orer id, adding items",next_order_id)
     # Insert individual items along with quantity in orders table
-    for food_item, quantity in order.items():
-        rcode = db_connector.insert_order_item(
-            food_item,
-            quantity,
+    rcode = db_connector.insert_order_item(
+            order,
             next_order_id
         )
-
-        if rcode == -1:
+    if rcode == -1:
             return -1
 
     # Now insert order tracking status
@@ -71,10 +68,10 @@ def complete_order(parameters: dict, session_id: str):
 
 def add_to_order(parameters: dict, session_id: str):
     print("Inside add to order")
-    print(parameters)
+    
     food_items = parameters["food_item"]
     quantities = parameters["number"]
-    #print(food_items,quantities)
+
     if len(food_items) != len(quantities):
         fulfillment_text = " I\'m Sorry, I didn\'t understand. Could you please specify food items and quantities clearly?"
     else:

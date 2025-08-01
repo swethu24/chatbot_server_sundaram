@@ -8,9 +8,9 @@ cnx = mysql.connector.connect(
     database="freedb_food_chat_bot",
     port = 3306            
 )
-def insert_order_item(food_item, quantity, order_id):
+def insert_order_item(order, order_id):
     cursor = cnx.cursor()
-    items = dict(zip(food_item, quantity))
+    items = order
 
     for item_name, qty in items.items():
         # Fetch item_id and price from food_items table
@@ -27,9 +27,10 @@ def insert_order_item(food_item, quantity, order_id):
                 VALUES (%s, %s, %s, %s)
             """
             cursor.execute(insert_query, (order_id, item_id, qty, total_price))
+            return 1
         else:
             print(f"Item '{item_name}' not found in food_items table.")
-
+            return -1
     cnx.commit()
     cursor.close()
 
