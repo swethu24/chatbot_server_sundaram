@@ -72,7 +72,7 @@ def complete_order(parameters: dict, session_id: str):
 def add_to_order(parameters: dict, session_id: str):
     print("Inside add to order")
     print(parameters)
-    food_items = parameters["food-item"]
+    food_items = parameters["food_item"]
     quantities = parameters["number"]
     #print(food_items,quantities)
     if len(food_items) != len(quantities):
@@ -102,7 +102,7 @@ def remove_from_order(parameters: dict, session_id: str):
             "fulfillmentText": "I'm having a trouble finding your order. Sorry! Can you place a new order please?"
         })
     
-    food_items = parameters["food-item"]
+    food_items = parameters["food_item"]
     current_order = inprogress_orders[session_id]
 
     removed_items = []
