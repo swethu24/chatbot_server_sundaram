@@ -26,8 +26,9 @@ async def root(request: Request):
     return intent_handler_dict[intent](parameters, session_id)
 
 def save_to_db(order: dict):
+    print("Inside save_to_db")
     next_order_id = db_connector.get_next_order_id()
-
+    print("Got next orer id, adding items")
     # Insert individual items along with quantity in orders table
     for food_item, quantity in order.items():
         rcode = db_connector.insert_order_item(
@@ -45,6 +46,7 @@ def save_to_db(order: dict):
     return next_order_id
 
 def complete_order(parameters: dict, session_id: str):
+    print("Inside complete_order")
     if session_id not in inprogress_orders:
         fulfillment_text = "I'm having a trouble finding your order. Sorry! Can you place a new order please?"
     else:
@@ -68,11 +70,12 @@ def complete_order(parameters: dict, session_id: str):
 
 
 def add_to_order(parameters: dict, session_id: str):
+    print("Inside add to order")
     food_items = parameters["food-item"]
     quantities = parameters["number"]
-
+    print(food_items,quantities)
     if len(food_items) != len(quantities):
-        fulfillment_text = " I'm Sorry, I didn't understand. Could you please specify food items and quantities clearly?"
+        fulfillment_text = " I\'m Sorry, I didn\'t understand. Could you please specify food items and quantities clearly?"
     else:
         new_food_dict = dict(zip(food_items, quantities))
 
@@ -92,6 +95,7 @@ def add_to_order(parameters: dict, session_id: str):
 
 
 def remove_from_order(parameters: dict, session_id: str):
+    print("Inside remove from order")
     if session_id not in inprogress_orders:
         return JSONResponse(content={
             "fulfillmentText": "I'm having a trouble finding your order. Sorry! Can you place a new order please?"
@@ -129,6 +133,7 @@ def remove_from_order(parameters: dict, session_id: str):
 
 
 def track_order(parameters: dict, session_id: str):
+    print("Inside track order")
     order_id = int(parameters['order_id'])
     order_status = db_connector.get_order_status(order_id)
     if order_status:
