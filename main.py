@@ -28,7 +28,7 @@ async def root(request: Request):
 def save_to_db(order: dict):
     print("Inside save_to_db")
     next_order_id = db_connector.get_next_order_id()
-    print("Got next orer id, adding items")
+    print("Got next orer id, adding items",next_order_id)
     # Insert individual items along with quantity in orders table
     for food_item, quantity in order.items():
         rcode = db_connector.insert_order_item(

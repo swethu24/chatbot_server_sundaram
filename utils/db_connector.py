@@ -9,22 +9,33 @@ cnx = mysql.connector.connect(
     port = 3306            
 )
 def insert_order_item(food_item, quantity, order_id):
-    try:
-        cursor = cnx.cursor()
-        cursor.callproc('insert_order_item', (food_item, quantity, order_id))
-        cnx.commit()
-        cursor.close()
-        print("Order item inserted successfully!")
-        return 1
 
-    except mysql.connector.Error as err:
-        print(f"Error inserting order item: {err}")
-        cnx.rollback()
-        return -1
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        cnx.rollback()
-        return -1
+    cursor = cnx.cursor()
+    food_items = dict(zip(food_item, quantity))
+    # Build the inline table for SQL
+    values_clause = " UNION ALL ".join(
+        f"SELECT {key} AS name, {values} AS quantity"
+        for key,values in food_items.items()
+    )
+
+    query = f"""
+        SELECT 
+            fi.item_id,
+            fi.name,
+            fi.price,
+            temp.quantity,
+            fi.price * temp.quantity AS total_price
+        FROM 
+            food_items fi
+        JOIN (
+            {values_clause}
+        ) AS temp ON fi.name = temp.name;
+    """
+
+    cursor.execute(query)
+    results = cursor.fetchall()
+    cursor.close()
+    return results
 
 # Function to insert a record into the order_tracking table
 def insert_order_tracking(order_id, status):
