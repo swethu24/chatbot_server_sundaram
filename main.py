@@ -29,7 +29,6 @@ def save_to_db(order: dict):
     print("Inside save_to_db")
     next_order_id = db_connector.get_next_order_id()
     print("Got next orer id, adding items",next_order_id)
-    # Insert individual items along with quantity in orders table
     rcode = db_connector.insert_order_item(
             order,
             next_order_id
@@ -37,9 +36,7 @@ def save_to_db(order: dict):
     if rcode == -1:
             return -1
 
-    # Now insert order tracking status
     db_connector.insert_order_tracking(next_order_id, "in progress")
-
     return next_order_id
 
 def complete_order(parameters: dict, session_id: str):
@@ -55,7 +52,7 @@ def complete_order(parameters: dict, session_id: str):
         else:
             order_total = db_connector.get_total_order_price(order_id)
 
-            fulfillment_text = f"Awesome! Your Order is Placed. " \
+            fulfillment_text = f"Awesome! Your Healthy Meal Order is Placed. " \
                            f"Here is your order id # {order_id}. " \
                            f"Your order total is {order_total} which you can pay at the time of delivery!"
 
@@ -85,7 +82,7 @@ def add_to_order(parameters: dict, session_id: str):
             inprogress_orders[session_id] = new_food_dict
 
         order_str = fetch_data.get_str_from_food_dict(inprogress_orders[session_id])
-        fulfillment_text = f"So far you have ordered: {order_str}. Would you like to have anything else?"
+        fulfillment_text = f"Your Cart has: {order_str}. Would you like to add anything else?"
 
     return JSONResponse(content={
         "fulfillmentText": fulfillment_text
