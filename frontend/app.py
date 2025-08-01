@@ -28,8 +28,8 @@ for item, price in menu_items.items():
     st.markdown(f"**{item}** — ₹{price}")
 
 # Image placeholder for menu
-st.image("frontend/images/alaap-d-Fv3uNhZVMJU-unsplash.jpg ")
-st.image("frontend/images/shreyak-singh-gFB1IPmH6RE-unsplash.jpg")
+#st.image("frontend/images/alaap-d-Fv3uNhZVMJU-unsplash.jpg ")
+#st.image("frontend/images/shreyak-singh-gFB1IPmH6RE-unsplash.jpg")
 st.image("frontend/images/Screenshot 2025-08-01 164929.png")
 st.image("frontend/images/Screenshot 2025-08-01 165109.png")      
 # Section: Order Form
