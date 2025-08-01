@@ -15,7 +15,7 @@ async def root(request: Request):
     parameters = body['queryResult']['parameters']
     output_contexts = body['queryResult']['outputContexts']
     session_id = fetch_data.extract_session_id(output_contexts[0]["name"])
-
+    print(parameters)
     intent_handler_dict = {
         'order.add': add_to_order,
         'order.remove': remove_from_order,
