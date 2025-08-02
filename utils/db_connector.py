@@ -14,11 +14,11 @@ def insert_order_item(order, order_id):
 
     for item_name, qty in order.items():
         print(item_name,qty)
-        cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name))
+        cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name,))
         result = cursor.fetchone()
         if result:
             item_id, price = result
-            total_price = price * qty
+            total_price = price * int(qty)
             insert_query = """
                 INSERT INTO orders (order_id, item_id, quantity, total_price)
                 VALUES (%s, %s, %s, %s)
