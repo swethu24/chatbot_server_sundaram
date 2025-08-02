@@ -53,8 +53,8 @@ def complete_order(parameters: dict, session_id: str):
             order_total = db_connector.get_total_order_price(order_id)
 
             fulfillment_text = f"Awesome! Your Healthy Meal Order is Placed. " \
-                           f"Here is your order id # {order_id}. " \
-                           f"Your order total is {order_total} which you can pay at the time of delivery!"
+                           f"Here is your order id *#{order_id}*. " \
+                           f"Your order total is Rs.{order_total} which you can pay at the time of delivery!"
 
         del inprogress_orders[session_id]
 
@@ -132,7 +132,7 @@ def track_order(parameters: dict, session_id: str):
     order_id = int(parameters['order_id'])
     order_status = db_connector.get_order_status(order_id)
     if order_status:
-        fulfillment_text = f"The current status of order with id: {order_id} is: {order_status}"
+        fulfillment_text = f"The current status of order with id: {order_id} is *{order_status}*"
     else:
         fulfillment_text = f"No order found with order id: {order_id}"
 
