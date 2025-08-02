@@ -13,6 +13,7 @@ def insert_order_item(order, order_id):
     print("Inside, insert order",order)
 
     for item_name, qty in order.items():
+        print(item_name,qty)
         cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name))
         result = cursor.fetchone()
         if result:
