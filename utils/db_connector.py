@@ -10,9 +10,9 @@ cnx = mysql.connector.connect(
 )
 def insert_order_item(order, order_id):
     cursor = cnx.cursor()
-    items = order
+    print("Inside, insert order",order)
 
-    for item_name, qty in items.items():
+    for item_name, qty in order.items():
         # Fetch item_id and price from food_items table
         cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name,))
         result = cursor.fetchone()
