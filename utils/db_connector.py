@@ -13,24 +13,19 @@ def insert_order_item(order, order_id):
     print("Inside, insert order",order)
 
     for item_name, qty in order.items():
-        # Fetch item_id and price from food_items table
-        cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name,))
+        cursor.execute("SELECT item_id, price FROM food_items WHERE name = %s", (item_name))
         result = cursor.fetchone()
-
         if result:
             item_id, price = result
             total_price = price * qty
-
-            # Insert into orders table
             insert_query = """
                 INSERT INTO orders (order_id, item_id, quantity, total_price)
                 VALUES (%s, %s, %s, %s)
             """
             cursor.execute(insert_query, (order_id, item_id, qty, total_price))
-            return 1
+            print(f"Inserted {qty} of {item_name} with total price {total_price} into orders table.")
         else:
             print(f"Item '{item_name}' not found in food_items table.")
-            return -1
     cnx.commit()
     cursor.close()
 
@@ -47,6 +42,7 @@ def get_total_order_price(order_id):
     query = f"SELECT o.order_id, SUM(fi.price * o.quantity) AS total_price FROM orders o JOIN food_items fi ON o.item_id = fi.item_id where o.order_id = {order_id} GROUP BY o.order_id;"
     cursor.execute(query)
     result = cursor.fetchone()[1]
+    print(result)
     cursor.close()
     return result
 
